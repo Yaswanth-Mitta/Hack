@@ -10,7 +10,6 @@ on:
   push:
     branches:
       - main
-    # --- CHANGED: The 'paths' filter has been removed to run on all changes. ---
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -35,28 +34,28 @@ jobs:
       # Step 2: Build and push the Backend Docker image
       - name: Build and push Backend image
         run: |
-          docker build -t ${{ env.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }} ./backend
-          docker tag ${{ env.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }} ${{ env.DOCKER_USERNAME }}/backend:latest
-          docker push ${{ env.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }}
-          docker push ${{ env.DOCKER_USERNAME }}/backend:latest
+          sudo docker build -t ${{ env.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }} ./backend
+          sudo docker tag ${{ env.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }} ${{ env.DOCKER_USERNAME }}/backend:latest
+          sudo docker push ${{ env.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }}
+          sudo docker push ${{ env.DOCKER_USERNAME }}/backend:latest
 
       # Step 3: Build and push the Frontend Docker image
       - name: Build and push Frontend image
         run: |
-          docker build -t ${{ env.DOCKER_USERNAME }}/frontend:${{ env.IMAGE_TAG }} ./frontend
-          docker tag ${{ env.DOCKER_USERNAME }}/frontend:${{ env.IMAGE_TAG }} ${{ env.DOCKER_USERNAME }}/frontend:latest
-          docker push ${{ env.DOCKER_USERNAME }}/frontend:${{ env.IMAGE_TAG }}
-          docker push ${{ env.DOCKER_USERNAME }}/frontend:latest
+          sudo docker build -t ${{ env.DOCKER_USERNAME }}/frontend:${{ env.IMAGE_TAG }} ./frontend
+          sudo docker tag ${{ env.DOCKER_USERNAME }}/frontend:${{ env.IMAGE_TAG }} ${{ env.DOCKER_USERNAME }}/frontend:latest
+          sudo docker push ${{ env.DOCKER_USERNAME }}/frontend:${{ env.IMAGE_TAG }}
+          sudo docker push ${{ env.DOCKER_USERNAME }}/frontend:latest
 
       # Step 4: Deploy to Kubernetes in the specified order
       - name: Deploy to Kubernetes
         run: |
           echo "Applying mongo-deployment.yaml"
-          kubectl apply -f k8s/mongo-deployment.yaml
+          sudo kubectl apply -f k8s/mongo-deployment.yaml
           
           echo "Applying backend-deployment.yaml"
-          kubectl apply -f k8s/backend-deployment.yaml
+          sudo kubectl apply -f k8s/backend-deployment.yaml
           
           echo "Applying frontend-deployment.yaml"
-          kubectl apply -f k8s/frontend-deployment.yaml
+          sudo kubectl apply -f k8s/frontend-deployment.yaml
 
