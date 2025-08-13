@@ -1,4 +1,3 @@
-
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const todoList = document.getElementById("todoList");
@@ -20,9 +19,7 @@ function fetchTodos() {
         todoList.appendChild(li);
       });
     })
-    .catch(err => {
-      console.error("Error fetching todos:", err);
-    });
+    .catch(err => console.error("Error fetching todos:", err));
 }
 
 function addTodo() {
@@ -42,9 +39,7 @@ function addTodo() {
       taskInput.value = "";
       fetchTodos();
     })
-    .catch(err => {
-      console.error("Error adding todo:", err);
-    });
+    .catch(err => console.error("Error adding todo:", err));
 }
 
 function deleteTodo(task) {
@@ -53,9 +48,7 @@ function deleteTodo(task) {
       if (!res.ok) throw new Error("Failed to delete task");
       fetchTodos();
     })
-    .catch(err => {
-      console.error("Error deleting todo:", err);
-    });
+    .catch(err => console.error("Error deleting todo:", err));
 }
 
 addBtn.addEventListener("click", addTodo);
