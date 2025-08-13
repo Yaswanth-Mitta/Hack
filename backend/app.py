@@ -3,6 +3,8 @@ from flask_pymongo import PyMongo
 from flask_cors import CORS
 import os
 
+
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS so frontend can access backend
 
