@@ -1,87 +1,133 @@
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #74ABE2, #5563DE);
-  margin: 0;
-  padding: 20px;
+:root {
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+    --background-light: #f0f2f5;
+    --card-background: #ffffff;
+    --text-color-dark: #333333;
+    --text-color-light: #666666;
+    --border-color: #e0e0e0;
+    --delete-color: #ff4d4d;
+    --delete-hover-color: #e60000;
 }
 
-.container {
-  max-width: 450px;
-  margin: auto;
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.todo-card {
+    background: var(--card-background);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+    text-align: center;
+    color: var(--text-color-dark);
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-.input-group {
-  display: flex;
-  gap: 10px;
+.icon {
+    font-size: 1.8rem;
+    line-height: 1;
 }
 
-input {
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: border 0.2s;
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-input:focus {
-  border-color: #5563DE;
+input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-button {
-  background-color: #5563DE;
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
 }
 
-button:hover {
-  background-color: #4052b5;
+button#addBtn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button#addBtn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
 ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
 }
 
 li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  margin-bottom: 10px;
-  background: #f7f7f7;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: var(--background-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    color: var(--text-color-dark);
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 li button {
-  color: white;
-  background: #ff4d4d;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
+    background: var(--delete-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
 }
 
 li button:hover {
-  background: #d93636;
+    background: var(--delete-hover-color);
 }
-
