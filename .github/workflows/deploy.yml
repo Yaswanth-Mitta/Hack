@@ -27,3 +27,6 @@ jobs:
       - name: Deploy Frontend
         run: kubectl apply -f k8s/frontend-deployment.yaml
 
+
+        # Configure Dast scan here 
+

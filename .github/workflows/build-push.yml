@@ -49,12 +49,6 @@ jobs:
             echo "Frontend test failed but continuing..."
           fi
 
-      # DAST Scan (Non-blocking)
-      - name: Run DAST scan (Zap baseline)
-        run: |
-          docker run --rm -v $(pwd):/zap/wrk/:rw \
-            ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
-            -t http://example.com || echo "DAST scan failed but continuing..."
 
       # SCA (Disabled)
       - name: SCA scan (disabled)
@@ -73,7 +67,7 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }} ./backend
           docker tag ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/backend:latest 
-          docker push ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}
+          # docker push ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}
           docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
       # Build & Push Frontend image
@@ -81,6 +75,6 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }} ./frontend
           docker tag ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/frontend:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
+          # docker push ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
           docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
 
