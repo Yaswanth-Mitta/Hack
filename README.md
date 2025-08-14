@@ -8,6 +8,12 @@ A containerized todo application with automated CI/CD pipeline deployed on Kuber
 **Backend**: Flask + MongoDB  
 **Infrastructure**: Kubernetes, Docker, GitHub Actions  
 
+## 📊 Flow Diagram
+
+![Todo App Architecture](arch.png)
+
+
+
 ##  Quick Start
 
 Access the application at: `http://<your-public-ip>:30080`
@@ -38,9 +44,5 @@ Access the application at: `http://<your-public-ip>:30080`
 ## 🔧 Environment Setup
 
 For self-hosted runner setup and infrastructure provisioning, see: [Infrastructure Repo](https://github.com/yaswanth-mitta/Hack-Terraform)
-
-## 📊 Architecture Diagram
-
-![Todo App Architecture](arch.png)
 
 
