@@ -15,13 +15,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Apply Kubernetes manifests
+      # Deploy Mongo
       - name: Deploy Mongo
         run: kubectl apply -f k8s/mongo-deployment.yaml
 
+      # Deploy Backend
       - name: Deploy Backend
         run: kubectl apply -f k8s/backend-deployment.yaml
 
+      # Deploy Frontend
       - name: Deploy Frontend
         run: kubectl apply -f k8s/frontend-deployment.yaml
 

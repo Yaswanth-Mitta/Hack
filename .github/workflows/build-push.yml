@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'backend/**'
-      - 'frontend/**'
 
 jobs:
   build-and-push:
@@ -16,26 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # ==============================
       # Backend Linter (non-blocking)
-      # ==============================
       - name: Run Python linter (flake8)
         run: |
           pip install flake8 || true
           flake8 backend || echo "Linter warnings/errors ignored..."
 
-      # ==============================
       # Frontend Linter (non-blocking)
-      # ==============================
       - name: Run frontend linter (eslint)
         run: |
           npm install -g eslint || true
           cd frontend
           eslint . || echo "Frontend lint issues ignored..."
 
-      # ==============================
       # Backend Tests
-      # ==============================
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -47,9 +38,7 @@ jobs:
           pip install -r requirements.txt || true
           pytest || echo "Backend tests failed but continuing..."
 
-      # ==============================
       # Frontend Tests
-      # ==============================
       - name: Run frontend tests
         run: |
           cd frontend
@@ -60,34 +49,26 @@ jobs:
             echo "Frontend test failed but continuing..."
           fi
 
-      # ==============================
       # DAST Scan (Non-blocking)
-      # ==============================
       - name: Run DAST scan (Zap baseline)
         run: |
           docker run --rm -v $(pwd):/zap/wrk/:rw \
             ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
             -t http://example.com || echo "DAST scan failed but continuing..."
 
-      # ==============================
       # SCA (Disabled)
-      # ==============================
       - name: SCA scan (disabled)
         run: |
           echo "SCA scan is intentionally disabled..."
 
-      # ==============================
       # Docker Login
-      # ==============================
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # ==============================
       # Build & Push Backend image
-      # ==============================
       - name: Build & Push Backend image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }} ./backend
@@ -95,9 +76,7 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/backend:${{ github.sha }}
           docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
-      # ==============================
       # Build & Push Frontend image
-      # ==============================
       - name: Build & Push Frontend image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }} ./frontend
